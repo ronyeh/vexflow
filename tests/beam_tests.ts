@@ -434,7 +434,7 @@ function outlier(options: TestOptions): void {
   f.Beam({ notes: notes.slice(0, 4) });
   f.Beam({ notes: notes.slice(4, 8) });
 
-  f.Formatter().joinVoices([voice]).formatToStave([voice], stave, { stave: stave });
+  f.Formatter().joinVoices([voice]).formatToStave([voice], stave, { stave });
 
   f.draw();
 
@@ -794,7 +794,7 @@ function complexWithAnnotation(options: TestOptions): void {
 
   const voice = factory.Voice().setMode(Voice.Mode.SOFT).addTickables(notes1).addTickables(notes2);
 
-  factory.Formatter().joinVoices([voice]).formatToStave([voice], stave, { stave: stave });
+  factory.Formatter().joinVoices([voice]).formatToStave([voice], stave, { stave });
 
   factory.draw();
 
@@ -837,7 +837,7 @@ function complexWithArticulation(options: TestOptions): void {
 
   const voice = f.Voice().setMode(Voice.Mode.SOFT).addTickables(notes1).addTickables(notes2);
 
-  f.Formatter().joinVoices([voice]).formatToStave([voice], stave, { stave: stave });
+  f.Formatter().joinVoices([voice]).formatToStave([voice], stave, { stave });
 
   f.draw();
 

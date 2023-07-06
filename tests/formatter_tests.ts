@@ -182,7 +182,7 @@ function penultimateNote(options: TestOptions): void {
     notes.push(note);
     voices.push(score.voice(notes).setMode(2));
     notes = [];
-    stave = system.addStave({ voices: voices });
+    stave = system.addStave({ voices });
     stave.addClef('bass');
     stave.addTimeSignature('2/4');
     voices = [];
@@ -451,7 +451,7 @@ function justifyStaveNotes(options: TestOptions): void {
 
   let y = 30;
   function justifyToWidth(width: number) {
-    f.Stave({ y: y }).addClef('treble');
+    f.Stave({ y }).addClef('treble');
 
     const voices = [
       score.voice(score.notes('(cbb4 en4 a4)/2, (d4 e4 f4)/8, (d4 f4 a4)/8, (cn4 f#4 a4)/4', { stem: 'down' })),
@@ -482,13 +482,13 @@ function notesWithTab(options: TestOptions): void {
 
   let y = 10;
   function justifyToWidth(width: number) {
-    const stave = f.Stave({ y: y }).addClef('treble');
+    const stave = f.Stave({ y }).addClef('treble');
 
     const voice = score.voice(score.notes('d#4/2, (c4 d4)/8, d4/8, (c#4 e4 a4)/4', { stem: 'up' }));
 
     y += 100;
 
-    f.TabStave({ y: y }).addTabGlyph().setNoteStartX(stave.getNoteStartX());
+    f.TabStave({ y }).addTabGlyph().setNoteStartX(stave.getNoteStartX());
 
     const tabVoice = score.voice([
       f.TabNote({ positions: [{ str: 3, fret: 6 }], duration: '2' }).addModifier(new Bend('Full'), 0),

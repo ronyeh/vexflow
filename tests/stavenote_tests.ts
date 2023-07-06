@@ -236,7 +236,7 @@ function autoStem(assert: Assert): void {
   testData.forEach((td) => {
     const keys = td[0];
     const expectedStemDirection = td[1];
-    const note = new StaveNote({ keys: keys, auto_stem: true, duration: '8' });
+    const note = new StaveNote({ keys, auto_stem: true, duration: '8' });
     assert.equal(
       note.getStemDirection(),
       expectedStemDirection,
@@ -265,9 +265,9 @@ function stemExtensionPitch(assert: Assert): void {
     const overrideStemDirection = td[2];
     let note;
     if (overrideStemDirection === 0) {
-      note = new StaveNote({ keys: keys, auto_stem: true, duration: '4' });
+      note = new StaveNote({ keys, auto_stem: true, duration: '4' });
     } else {
-      note = new StaveNote({ keys: keys, duration: '4', stem_direction: overrideStemDirection });
+      note = new StaveNote({ keys, duration: '4', stem_direction: overrideStemDirection });
     }
     assert.equal(
       note.getStemExtension(),
@@ -360,34 +360,34 @@ function drawBasic(options: TestOptions, contextBuilder: ContextBuilder): void {
   const restKeys = [restKey];
 
   const noteStructs: StaveNoteStruct[] = [
-    { clef: clef, keys: higherKeys, duration: '1/2' },
-    { clef: clef, keys: lowerKeys, duration: 'w' },
-    { clef: clef, keys: higherKeys, duration: 'h' },
-    { clef: clef, keys: lowerKeys, duration: 'q' },
-    { clef: clef, keys: higherKeys, duration: '8' },
-    { clef: clef, keys: lowerKeys, duration: '16' },
-    { clef: clef, keys: higherKeys, duration: '32' },
-    { clef: clef, keys: higherKeys, duration: '64' },
-    { clef: clef, keys: higherKeys, duration: '128' },
-    { clef: clef, keys: lowerKeys, duration: '1/2', stem_direction: Stem.DOWN },
-    { clef: clef, keys: lowerKeys, duration: 'w', stem_direction: Stem.DOWN },
-    { clef: clef, keys: lowerKeys, duration: 'h', stem_direction: Stem.DOWN },
-    { clef: clef, keys: lowerKeys, duration: 'q', stem_direction: Stem.DOWN },
-    { clef: clef, keys: lowerKeys, duration: '8', stem_direction: Stem.DOWN },
-    { clef: clef, keys: lowerKeys, duration: '16', stem_direction: Stem.DOWN },
-    { clef: clef, keys: lowerKeys, duration: '32', stem_direction: Stem.DOWN },
-    { clef: clef, keys: lowerKeys, duration: '64', stem_direction: Stem.DOWN },
-    { clef: clef, keys: lowerKeys, duration: '128', stem_direction: Stem.DOWN },
+    { clef, keys: higherKeys, duration: '1/2' },
+    { clef, keys: lowerKeys, duration: 'w' },
+    { clef, keys: higherKeys, duration: 'h' },
+    { clef, keys: lowerKeys, duration: 'q' },
+    { clef, keys: higherKeys, duration: '8' },
+    { clef, keys: lowerKeys, duration: '16' },
+    { clef, keys: higherKeys, duration: '32' },
+    { clef, keys: higherKeys, duration: '64' },
+    { clef, keys: higherKeys, duration: '128' },
+    { clef, keys: lowerKeys, duration: '1/2', stem_direction: Stem.DOWN },
+    { clef, keys: lowerKeys, duration: 'w', stem_direction: Stem.DOWN },
+    { clef, keys: lowerKeys, duration: 'h', stem_direction: Stem.DOWN },
+    { clef, keys: lowerKeys, duration: 'q', stem_direction: Stem.DOWN },
+    { clef, keys: lowerKeys, duration: '8', stem_direction: Stem.DOWN },
+    { clef, keys: lowerKeys, duration: '16', stem_direction: Stem.DOWN },
+    { clef, keys: lowerKeys, duration: '32', stem_direction: Stem.DOWN },
+    { clef, keys: lowerKeys, duration: '64', stem_direction: Stem.DOWN },
+    { clef, keys: lowerKeys, duration: '128', stem_direction: Stem.DOWN },
 
-    { clef: clef, keys: restKeys, duration: '1/2r' },
-    { clef: clef, keys: restKeys, duration: 'wr' },
-    { clef: clef, keys: restKeys, duration: 'hr' },
-    { clef: clef, keys: restKeys, duration: 'qr' },
-    { clef: clef, keys: restKeys, duration: '8r' },
-    { clef: clef, keys: restKeys, duration: '16r' },
-    { clef: clef, keys: restKeys, duration: '32r' },
-    { clef: clef, keys: restKeys, duration: '64r' },
-    { clef: clef, keys: restKeys, duration: '128r' },
+    { clef, keys: restKeys, duration: '1/2r' },
+    { clef, keys: restKeys, duration: 'wr' },
+    { clef, keys: restKeys, duration: 'hr' },
+    { clef, keys: restKeys, duration: 'qr' },
+    { clef, keys: restKeys, duration: '8r' },
+    { clef, keys: restKeys, duration: '16r' },
+    { clef, keys: restKeys, duration: '32r' },
+    { clef, keys: restKeys, duration: '64r' },
+    { clef, keys: restKeys, duration: '128r' },
     { keys: ['x/4'], duration: 'h' },
   ];
   options.assert.expect(noteStructs.length * 2);
@@ -435,34 +435,34 @@ function drawBoundingBoxes(options: TestOptions, contextBuilder: ContextBuilder)
   const restKeys = [restKey];
 
   const noteStructs = [
-    { clef: clef, keys: higherKeys, duration: '1/2' },
-    { clef: clef, keys: lowerKeys, duration: 'w' },
-    { clef: clef, keys: higherKeys, duration: 'h' },
-    { clef: clef, keys: lowerKeys, duration: 'q' },
-    { clef: clef, keys: higherKeys, duration: '8' },
-    { clef: clef, keys: lowerKeys, duration: '16' },
-    { clef: clef, keys: higherKeys, duration: '32' },
-    { clef: clef, keys: higherKeys, duration: '64' },
-    { clef: clef, keys: higherKeys, duration: '128' },
-    { clef: clef, keys: lowerKeys, duration: '1/2', stem_direction: Stem.DOWN },
-    { clef: clef, keys: lowerKeys, duration: 'w', stem_direction: Stem.DOWN },
-    { clef: clef, keys: lowerKeys, duration: 'h', stem_direction: Stem.DOWN },
-    { clef: clef, keys: lowerKeys, duration: 'q', stem_direction: Stem.DOWN },
-    { clef: clef, keys: lowerKeys, duration: '8', stem_direction: Stem.DOWN },
-    { clef: clef, keys: lowerKeys, duration: '16', stem_direction: Stem.DOWN },
-    { clef: clef, keys: lowerKeys, duration: '32', stem_direction: Stem.DOWN },
-    { clef: clef, keys: lowerKeys, duration: '64', stem_direction: Stem.DOWN },
-    { clef: clef, keys: lowerKeys, duration: '128' },
+    { clef, keys: higherKeys, duration: '1/2' },
+    { clef, keys: lowerKeys, duration: 'w' },
+    { clef, keys: higherKeys, duration: 'h' },
+    { clef, keys: lowerKeys, duration: 'q' },
+    { clef, keys: higherKeys, duration: '8' },
+    { clef, keys: lowerKeys, duration: '16' },
+    { clef, keys: higherKeys, duration: '32' },
+    { clef, keys: higherKeys, duration: '64' },
+    { clef, keys: higherKeys, duration: '128' },
+    { clef, keys: lowerKeys, duration: '1/2', stem_direction: Stem.DOWN },
+    { clef, keys: lowerKeys, duration: 'w', stem_direction: Stem.DOWN },
+    { clef, keys: lowerKeys, duration: 'h', stem_direction: Stem.DOWN },
+    { clef, keys: lowerKeys, duration: 'q', stem_direction: Stem.DOWN },
+    { clef, keys: lowerKeys, duration: '8', stem_direction: Stem.DOWN },
+    { clef, keys: lowerKeys, duration: '16', stem_direction: Stem.DOWN },
+    { clef, keys: lowerKeys, duration: '32', stem_direction: Stem.DOWN },
+    { clef, keys: lowerKeys, duration: '64', stem_direction: Stem.DOWN },
+    { clef, keys: lowerKeys, duration: '128' },
 
-    { clef: clef, keys: restKeys, duration: '1/2r' },
-    { clef: clef, keys: restKeys, duration: 'wr' },
-    { clef: clef, keys: restKeys, duration: 'hr' },
-    { clef: clef, keys: restKeys, duration: 'qr' },
-    { clef: clef, keys: restKeys, duration: '8r' },
-    { clef: clef, keys: restKeys, duration: '16r' },
-    { clef: clef, keys: restKeys, duration: '32r' },
-    { clef: clef, keys: restKeys, duration: '64r' },
-    { clef: clef, keys: restKeys, duration: '128r' },
+    { clef, keys: restKeys, duration: '1/2r' },
+    { clef, keys: restKeys, duration: 'wr' },
+    { clef, keys: restKeys, duration: 'hr' },
+    { clef, keys: restKeys, duration: 'qr' },
+    { clef, keys: restKeys, duration: '8r' },
+    { clef, keys: restKeys, duration: '16r' },
+    { clef, keys: restKeys, duration: '32r' },
+    { clef, keys: restKeys, duration: '64r' },
+    { clef, keys: restKeys, duration: '128r' },
     { keys: ['x/4'], duration: 'h' },
   ];
   options.assert.expect(noteStructs.length * 2);

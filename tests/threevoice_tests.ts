@@ -130,7 +130,7 @@ function autoRestTwoVoices(options: TestOptions): void {
   let beams: Beam[] = [];
 
   function createMeasure(measureTitle: string, width: number, align_rests: boolean) {
-    const stave = f.Stave({ x: x, y: 50, width: width }).setBegBarType(1);
+    const stave = f.Stave({ x, y: 50, width }).setBegBarType(1);
     x += width;
 
     const noteArrays: Note[][] = [
@@ -166,7 +166,7 @@ function autoRestThreeVoices1(options: TestOptions): void {
   let x = 10;
 
   function createMeasure(measureTitle: string, width: number, align_rests: boolean) {
-    const stave = f.Stave({ x: x, y: 50, width: width }).setBegBarType(1);
+    const stave = f.Stave({ x, y: 50, width }).setBegBarType(1);
 
     const voices = [
       score.voice(score.notes('b4/4/r, e5, e5/r, e5/r, e5, e5, e5, e5/r', { stem: 'up' }), { time: '8/4' }),
@@ -199,7 +199,7 @@ function autoRestThreeVoices2(options: TestOptions): void {
   let x = 10;
 
   function createMeasure(measureTitle: string, width: number, align_rests: boolean) {
-    const stave = f.Stave({ x: x, y: 50, width: width }).setBegBarType(1);
+    const stave = f.Stave({ x, y: 50, width }).setBegBarType(1);
 
     const voices = [
       score.voice(score.notes('b4/16/r, e5, e5/r, e5/r, e5, e5, e5, e5/r'), { time: '2/4' }),

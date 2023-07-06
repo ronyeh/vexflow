@@ -157,7 +157,7 @@ export class StaveNote extends StemmableNote {
         maxLine: maxL, // note/rest upper bounds line
         minLine: minL, // note/rest lower bounds line
         isrest: notes[i].isRest(),
-        stemDirection: stemDirection,
+        stemDirection,
         stemMax, // Maximum (default) note stem length;
         stemMin, // minimum note stem length
         voice_shift: notes[i].getVoiceShiftWidth(),

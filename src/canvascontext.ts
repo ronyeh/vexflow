@@ -271,9 +271,9 @@ export class CanvasContext extends RenderContext {
     // Return x, y, width & height in the same manner as svg getBBox
     return {
       x: 0,
-      y: y,
+      y,
       width: metrics.width,
-      height: height,
+      height,
     };
   }
 

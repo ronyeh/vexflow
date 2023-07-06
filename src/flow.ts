@@ -91,11 +91,11 @@ export class Flow {
   static get BUILD() {
     return {
       /** version number. */
-      VERSION: VERSION,
+      VERSION,
       /** git commit ID that this library was built from. */
-      ID: ID,
+      ID,
       /** The date when this library was compiled. */
-      DATE: DATE,
+      DATE,
     };
   }
 

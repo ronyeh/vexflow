@@ -1092,7 +1092,7 @@ export class Tables {
     const getWidth = (scale = Tables.NOTATION_FONT_SCALE): number => Glyph.getWidth(code_head, scale);
 
     // Merge duration props for 'duration' with the note head properties.
-    return { ...code.common, getWidth: getWidth, ...glyphTypeProperties } as GlyphProps;
+    return { ...code.common, getWidth, ...glyphTypeProperties } as GlyphProps;
   }
 
   /* The list of valid note types. Used by note.ts during parseNoteStruct(). */

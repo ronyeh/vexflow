@@ -117,7 +117,7 @@ export class StaveConnector extends Element {
     options: { shift_x: number; shift_y: number };
   }[];
 
-  protected type: typeof StaveConnector['type'][keyof typeof StaveConnector['type']];
+  protected type: (typeof StaveConnector)['type'][keyof (typeof StaveConnector)['type']];
 
   readonly top_stave: Stave;
   readonly bottom_stave: Stave;
