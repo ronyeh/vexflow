@@ -234,6 +234,7 @@ function webpackConfigs() {
       }
 
       if (!pluginFork) {
+        // https://www.npmjs.com/package/fork-ts-checker-webpack-plugin
         pluginFork = new ForkTsCheckerWebpackPlugin({
           typescript: {
             diagnosticOptions: {
@@ -304,12 +305,10 @@ function webpackConfigs() {
             resolve: { fullySpecified: false },
             use: [
               {
-                // https://webpack.js.org/guides/build-performance/#typescript-loader
-                // https://www.npmjs.com/package/fork-ts-checker-webpack-plugin
-                loader: 'ts-loader',
+                loader: 'esbuild-loader',
                 options: {
-                  configFile: 'tsconfig.json',
-                  transpileOnly: true,
+                  target: 'es2017',
+                  tsconfig: 'tsconfig.json',
                 },
               },
             ],
