@@ -98,10 +98,12 @@ const { execSync, spawnSync } = require('child_process');
 
 const ts = require('typescript');
 const webpack = require('webpack');
-const TerserPlugin = require('terser-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const open = require('opener');
 const concurrently = require('concurrently');
+
+const esbuild = require('esbuild');
+const { EsbuildPlugin } = require('esbuild-loader'); // For integration with webpack.
 
 // release-it can only be dynamically imported.
 const releaseItDynamicImport = import('release-it');
@@ -121,7 +123,7 @@ const versionInfo = require('./tools/version_info');
 // Add a banner to the top of some CJS output files.
 const banner =
   `VexFlow ${versionInfo.VERSION}   ${versionInfo.DATE}   ${versionInfo.ID}\n` +
-  `Copyright (c) 2023-present VexFlow contributors (see https://github.com/vexflow/vexflow/blob/main/AUTHORS.md).\n`;
+  `Copyright (c) 2023-present VexFlow contributors (see https://github.com/vexflow/vexflow/blob/main/AUTHORS.md).`;
 
 // Output directories & files.
 const BASE_DIR = __dirname;
@@ -174,6 +176,7 @@ function webpackConfigs() {
   let pluginCircular;
   let pluginFork;
   let pluginTerser;
+  let pluginEsbuild;
 
   // entryFiles is one of the following:
   //   an array of file names
@@ -233,8 +236,9 @@ function webpackConfigs() {
         plugins.push(pluginCircular);
       }
 
+      // Speeds up TypeScript type checking (by moving it to a separate process)
+      // https://www.npmjs.com/package/fork-ts-checker-webpack-plugin
       if (!pluginFork) {
-        // https://www.npmjs.com/package/fork-ts-checker-webpack-plugin
         pluginFork = new ForkTsCheckerWebpackPlugin({
           typescript: {
             diagnosticOptions: {
@@ -252,17 +256,31 @@ function webpackConfigs() {
     }
 
     let optimization;
+    // if (mode === PRODUCTION_MODE) {
+    //   if (!pluginTerser) {
+    //     pluginTerser = new TerserPlugin({
+    //       extractComments: false, // DO NOT extract the banner into a separate file.
+    //       parallel: os.cpus().length - 1,
+    //       terserOptions: { compress: true },
+    //     });
+    //   }
+    //   optimization = {
+    //     minimize: true,
+    //     minimizer: [pluginTerser],
+    //   };
+    // }
+
     if (mode === PRODUCTION_MODE) {
-      if (!pluginTerser) {
-        pluginTerser = new TerserPlugin({
-          extractComments: false, // DO NOT extract the banner into a separate file.
-          parallel: os.cpus().length - 1,
-          terserOptions: { compress: true },
+      if (!pluginEsbuild) {
+        pluginEsbuild = new EsbuildPlugin({
+          target: 'es2017',
+          legalComments: 'inline',
         });
       }
+
       optimization = {
         minimize: true,
-        minimizer: [pluginTerser],
+        minimizer: [pluginEsbuild],
       };
     }
 
@@ -290,14 +308,20 @@ function webpackConfigs() {
         rules: [
           {
             test: /version\.ts$/,
-            loader: 'string-replace-loader',
-            options: {
-              multiple: [
-                { search: '__VF_VERSION__', replace: versionInfo.VERSION },
-                { search: '__VF_GIT_COMMIT_ID__', replace: versionInfo.ID },
-                { search: '__VF_BUILD_DATE__', replace: versionInfo.DATE },
-              ],
-            },
+            exclude: /node_modules/,
+            resolve: { fullySpecified: false },
+            use: [
+              {
+                loader: 'esbuild-loader',
+                options: {
+                  define: {
+                    __VF_VERSION__: JSON.stringify(versionInfo.VERSION),
+                    __VF_GIT_COMMIT_ID__: JSON.stringify(versionInfo.ID),
+                    __VF_BUILD_DATE__: JSON.stringify(versionInfo.DATE),
+                  },
+                },
+              },
+            ],
           },
           {
             test: /(\.ts$|\.js$)/,

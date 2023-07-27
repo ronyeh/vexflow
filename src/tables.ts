@@ -2,6 +2,7 @@
 
 import { ArticulationStruct } from './articulation';
 import { Font, FontInfo } from './font';
+import { SMuFL } from './fonts/smufl';
 import { Fraction } from './fraction';
 import { Glyph, GlyphProps } from './glyph';
 import { KeyProps } from './note';
@@ -607,8 +608,8 @@ const accidentalColumns: Record<number, { [name: string]: number[] }> = {
 const articulations: Record<string, ArticulationStruct> = {
   'a.': { code: '\ue1e7' /*augmentationDot*/, betweenLines: true }, // Staccato
   av: {
-    aboveCode: '\ue4a6' /*articStaccatissimoAbove*/,
-    belowCode: '\ue4a7' /*articStaccatissimoBelow*/,
+    aboveCode: SMuFL.articStaccatissimoAbove,
+    belowCode: SMuFL.articStaccatissimoBelow,
     betweenLines: true,
   }, // Staccatissimo
   'a>': {
