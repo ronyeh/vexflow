@@ -1,10 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <meta charset="UTF-8" />
     <style>
       html {
-        font: 16px 'Helvetica Neue', Arial, sans-serif;
+        font:
+          16px 'Helvetica Neue',
+          Arial,
+          sans-serif;
       }
       body {
         margin: 20px;
@@ -23,27 +26,33 @@
     <div id="outputLeland"></div>
     <p>View the source code for more information.</p>
     <p>
-      <a href="core.html">Also see: core.html</a><br />
       <a href="core-with-promise.html">Also see: core-with-promise.html</a>
     </p>
     <!--
         To view this demo, open all.html in your web browser.
 
-        The standard VexFlow library (build/cjs/vexflow.js) includes four music fonts: Bravura, Gonville, Petaluma, and Leland.
-        It statically bundles all the music fonts, and selects Bravura as its default.
+        The VexFlow library (build/cjs/vexflow.js) statically bundles zero music fonts.
+        If you do not ask VexFlow to load any webfonts, at launch it will load Bravura as its default music engraving font.
+
+        However, if you wish to load a different font, you need to call Font.loadWebFont('xxx') before doing anything else.
+
         For this demo we include build/cjs/vexflow-debug.js, which is the non-minified version of vexflow.js.
+
         The build/cjs/*.js files are compatible with <script> tags.
         The build/esm/*.js files are compatible with ESM import statements.
     -->
-    <script src="../../build/cjs/vexflow.js"></script>
-    <script>
+    <script src="../../../build/cjs/vexflow-debug.js"></script>
+    <script type="module">
       const VF = Vex.Flow;
 
       console.log(VF.BUILD);
       console.log('VexFlow BUILD ' + JSON.stringify(VF.BUILD));
 
+      //
+      // await VF.Font.loadWebFonts();
+      await VF.Font.loadWebFonts(['Bravura', 'Gonville', 'Petaluma', 'Leland']);
+
       {
-        // Calling setMusicFont() here is optional, since Bravura is the default font.
         VF.setMusicFont('Bravura');
         const factory = new VF.Factory({
           renderer: { elementId: 'outputBravura', width: 500, height: 130 },

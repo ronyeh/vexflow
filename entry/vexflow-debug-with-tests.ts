@@ -13,7 +13,7 @@ import { loadAllMusicFonts } from '../src/fonts/load_all';
 import { loadTextFonts } from '../src/fonts/textfonts';
 
 loadAllMusicFonts();
-Flow.setMusicFont('Bravura', 'Gonville', 'Custom');
+// Flow.setMusicFont('Bravura', 'Gonville', 'Custom');
 loadTextFonts();
 
 // Re-export all exports from src/index.ts and tests/index.ts.

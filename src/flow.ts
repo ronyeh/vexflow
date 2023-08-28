@@ -201,38 +201,33 @@ export class Flow {
    * Vex.Flow.setMusicFont('Bravura', 'Gonville');
    * ```
    *
-   * **CASE 1**: You are using `vexflow.js`, which includes all music fonts (Bravura, Gonville, Petaluma, Custom).
-   * In this case, calling this method is optional, since VexFlow already defaults to a music font stack of:
-   * 'Bravura', 'Gonville', 'Custom'.
+   * The default music font stack is empty.
    *
-   * **CASE 2**: You are using `vexflow-bravura.js` or `vexflow-petaluma.js` or `vexflow-gonville.js`,
-   * which includes a single music font. Calling this method is unnecessary.
-   *
-   * **CASE 3**: You are using the light weight `vexflow-core.js` to take advantage of lazy loading for fonts.
-   * In this case, the default music font stack is empty.
    * Example:
    * ```
-   * await Vex.Flow.fetchMusicFont('Petaluma');
+   * ... make sure your font file is loaded (e.g., @font-face in CSS, or Vex.Flow.Font.loadWebFont()) ...
    * Vex.Flow.setMusicFont('Petaluma');
-   * ... (do VexFlow stuff) ...
+   * ... build and display your score ...
    * ```
    * See `demos/fonts/` for more examples.
    *
    * @returns an array of Font objects corresponding to the provided `fontNames`.
    */
   static setMusicFont(...fontNames: string[]): Font[] {
+    console.log('setMusicFont:', fontNames);
     // #FIXME: HACK to facilitate the VexFlow 5 migration.
     // HACK-BEGIN
     // Introduce the correct font stacks step by step.
     switch (fontNames[0]) {
       case 'Bravura':
-        CommonMetrics.fontFamily = 'Bravura,Roboto Slab';
+        CommonMetrics.fontFamily = 'Bravura,Academico';
         break;
       case 'Gonville':
-        CommonMetrics.fontFamily = 'GonvilleSmufl,Bravura,Roboto Slab';
+      case 'GonvilleSmufl':
+        CommonMetrics.fontFamily = 'Gonville,GonvilleSmufl,Bravura,Academico';
         break;
       case 'Leland':
-        CommonMetrics.fontFamily = 'Leland,Bravura,Roboto Slab';
+        CommonMetrics.fontFamily = 'Leland,Bravura,Academico';
         break;
       case 'Petaluma':
         CommonMetrics.fontFamily = 'Petaluma,Bravura,Petaluma Script';
@@ -251,15 +246,6 @@ export class Flow {
     Glyph.MUSIC_FONT_STACK = fonts.slice();
     Glyph.CURRENT_CACHE_KEY = fontNames.join(',');
     return fonts;
-  }
-
-  /**
-   * Used with vexflow-core which supports dynamic font loading.
-   */
-  // eslint-disable-next-line
-  static async fetchMusicFont(fontName: string, fontModuleOrPath?: string | FontModule): Promise<void> {
-    // The default implementation does nothing.
-    // See vexflow-core.ts for the implementation that vexflow-core.js uses.
   }
 
   static getMusicFont(): string[] {

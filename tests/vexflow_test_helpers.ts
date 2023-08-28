@@ -195,10 +195,10 @@ export class VexFlowTests {
    * Each font stack is a prioritized list of font names.
    */
   static FONT_STACKS: Record<string, string[]> = {
-    Bravura: ['Bravura', 'Custom'],
-    Gonville: ['Gonville', 'Bravura', 'Custom'],
-    Petaluma: ['Petaluma', 'Gonville', 'Bravura', 'Custom'],
-    Leland: ['Leland', 'Bravura', 'Custom'],
+    Bravura: ['Bravura' /*'Custom'*/],
+    Gonville: ['Gonville' /*'Bravura', 'Custom'*/],
+    Petaluma: ['Petaluma' /*'Gonville', 'Bravura', 'Custom'*/],
+    Leland: ['Leland' /*'Bravura', 'Custom'*/],
     MuseJazz: ['MuseJazz'],
   };
 

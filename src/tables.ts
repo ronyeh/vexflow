@@ -788,10 +788,7 @@ export class Tables {
    */
   static currentMusicFont(): Font {
     if (Tables.MUSIC_FONT_STACK.length === 0) {
-      throw new RuntimeError(
-        'NoFonts',
-        'The font stack is empty. See: await Flow.fetchMusicFont(...); Flow.setMusicFont(...).'
-      );
+      throw new RuntimeError('NoFonts', 'The font stack is empty. See: Flow.setMusicFont(...).');
     } else {
       return Tables.MUSIC_FONT_STACK[0];
     }

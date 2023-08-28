@@ -332,6 +332,7 @@ export class Font {
     Academico: 'academico/Academico_0.902.woff2',
     Bravura: 'bravura/Bravura_1.392.woff2',
     BravuraText: 'bravura/BravuraText_1.393.woff2',
+    Gonville: 'gonvillesmufl/GonvilleSmufl_1.100.woff2',
     GonvilleSmufl: 'gonvillesmufl/GonvilleSmufl_1.100.woff2',
     Gootville: 'gootville/Gootville_1.3.woff2',
     GootvilleText: 'gootville/GootvilleText_1.2.woff2',
@@ -362,8 +363,10 @@ export class Font {
   // eslint-disable-next-line
   // @ts-ignore
   static async loadWebFont(fontName: string, woffURL: string): Promise<FontFace> {
-    const fontFace = new FontFace(fontName, `url(${woffURL})`);
+    const fontFace = new FontFace(fontName, `url(${woffURL})`, { display: 'block' });
     await fontFace.load();
+    // Typescript shows this error:
+    // Property 'add' does not exist on type 'FontFaceSet'.
     // eslint-disable-next-line
     // @ts-ignore
     document.fonts.add(fontFace);
@@ -392,7 +395,7 @@ export class Font {
     for (const fontName of fontNames) {
       const fontPath = allFiles[fontName];
       if (fontPath) {
-        Font.loadWebFont(fontName, host + fontPath);
+        await Font.loadWebFont(fontName, host + fontPath);
       }
     }
   }
