@@ -306,7 +306,7 @@
 }
 
 #qunit-tests > li {
-	display: none;
+	/*display: none;*/
 }
 
 #qunit-tests li.running,

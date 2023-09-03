@@ -136,6 +136,9 @@ interface Test {
   Start(): void;
 }
 
+// eslint-disable-next-line
+let qunitTests: any;
+
 export class VexFlowTests {
   static tests: Test[] = [];
 
@@ -243,7 +246,11 @@ export class VexFlowTests {
     const title = $('<div/>').addClass('name').attr('id', titleId).html(anchorTestTitle).get(0);
     const vexOutput = $(`<${tagName}/>`).addClass('vex-tabdiv').attr('id', elementId).get(0);
     const container = $('<div/>').addClass('testcanvas').append(title, vexOutput).get(0);
-    $('#qunit-tests').append(container);
+    if (!qunitTests) {
+      qunitTests = $('#qunit-tests');
+    }
+
+    qunitTests.append(container);
     return vexOutput;
   }
 

@@ -3,7 +3,7 @@
 //
 // OffscreenCanvas Tests
 
-import { VexFlowTests } from './vexflow_test_helpers';
+import { TestOptions, VexFlowTests } from './vexflow_test_helpers';
 
 import { CanvasContext } from '../src/canvascontext';
 import { Formatter } from '../src/formatter';
@@ -20,11 +20,13 @@ const OffscreenCanvasTests = {
     }
 
     QUnit.module('OffscreenCanvas');
-    QUnit.test('Simple Test', simpleTest);
+    // QUnit.test('Simple Test', simpleTest);
+    VexFlowTests.runCanvasTest('OffscreenCanvas', simpleTest, undefined);
   },
 };
 
-function simpleTest(assert: Assert): void {
+function simpleTest(options: TestOptions): void {
+  // function simpleTest(assert: Assert): void {
   // Create a CanvasContext from an OffscreenCanvas.
   // eslint-disable-next-line
   // @ts-ignore
@@ -59,9 +61,10 @@ function simpleTest(assert: Assert): void {
     throw new Error("Couldn't create canvas context");
   }
   canvasCtx.drawImage(imgBmp, 0, 0);
-  document.body.appendChild(canvas);
+  canvasCtx.fillText('OffscreenCanvas', 30, 30);
 
-  assert.ok(true, 'all pass');
+  document.querySelector('#qunit-tests')?.appendChild(canvas);
+  options.assert.ok(true, 'all pass');
 }
 
 VexFlowTests.register(OffscreenCanvasTests);
