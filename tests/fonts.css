@@ -103,6 +103,47 @@
     url(../node_modules/@vexflow-fonts/finalemaestro/finalemaestro.woff2) format('woff2');
 }
 
+/* Finale Maestro Text */
+@font-face {
+  font-family: 'Finale Maestro Text';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src:
+    local('Finale Maestro Text'),
+    url(../node_modules/@vexflow-fonts/finalemaestrotext/finalemaestrotext-regular.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Finale Maestro Text';
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+  src:
+    local('Finale Maestro Text'),
+    url(../node_modules/@vexflow-fonts/finalemaestrotext/finalemaestrotext-bold.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Finale Maestro Text';
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+  src:
+    local('Finale Maestro Text'),
+    url(../node_modules/@vexflow-fonts/finalemaestrotext/finalemaestrotext-italic.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Finale Maestro Text';
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+  src:
+    local('Finale Maestro Text'),
+    url(../node_modules/@vexflow-fonts/finalemaestrotext/finalemaestrotext-bolditalic.woff2) format('woff2');
+}
+
 /* Finale Jazz */
 @font-face {
   font-family: 'Finale Jazz';
@@ -112,6 +153,17 @@
   src:
     local('Finale Jazz'),
     url(../node_modules/@vexflow-fonts/finalejazz/finalejazz.woff2) format('woff2');
+}
+
+/* Finale Jazz Text */
+@font-face {
+  font-family: 'Finale Jazz Text';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src:
+    local('Finale Jazz Text'),
+    url(../node_modules/@vexflow-fonts/finalejazztext/finalejazztext.woff2) format('woff2');
 }
 
 /* GonvilleSmufl */
