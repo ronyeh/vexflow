@@ -703,7 +703,7 @@ export class StaveNote extends StemmableNote {
     this.setYs(ys);
 
     if (this.stem) {
-      const { yTop, yBottom } = this.getNoteHeadBounds();
+      const { yTop, yBottom } = this.getStemYBounds();
       this.stem.setYBounds(yTop, yBottom);
     }
 
@@ -932,6 +932,29 @@ export class StaveNote extends StemmableNote {
    * @property {number} highestNonDisplacedLine
    * @property {number} lowestNonDisplacedLine
    */
+
+  /**
+   * Get Y bounds for the stem, adjusted for SMuFL stem anchor offsets defined in
+   * Tables.noteHeadStemYOffsets. This ensures stems attach at the correct point
+   * on the notehead (e.g. the arm tip of an X notehead) rather than the center.
+   */
+  protected getStemYBounds(): { yTop: number; yBottom: number } {
+    const anchorKey = this.stemDirection === Stem.UP ? 'up' : 'down';
+    let yTop = +Infinity;
+    let yBottom = -Infinity;
+    this._noteHeads.forEach((nh) => {
+      const offset = Tables.noteHeadStemYOffsets[nh.text];
+      const anchor = offset ? offset[anchorKey] : 0;
+      const y = nh.getY() - anchor * Tables.STAVE_LINE_DISTANCE;
+      yTop = Math.min(y, yTop);
+      yBottom = Math.max(y, yBottom);
+    });
+    if (!isFinite(yTop) || !isFinite(yBottom)) {
+      const bounds = this.getNoteHeadBounds();
+      return { yTop: bounds.yTop, yBottom: bounds.yBottom };
+    }
+    return { yTop, yBottom };
+  }
 
   /**
    * Get the staff line and y value for the highest & lowest noteheads
