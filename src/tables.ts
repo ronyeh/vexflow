@@ -424,6 +424,16 @@ export class Tables {
   static SLASH_NOTEHEAD_WIDTH = 15;
   static STAVE_LINE_DISTANCE = 10;
 
+  /**
+   * SMuFL stem anchor Y offsets for noteheads, in staff spaces (positive = above notehead center).
+   * Sourced from Bravura metadata `glyphsWithAnchors`: `stemUpSE[1]` (up) and `stemDownNW[1]` (down).
+   * Used to position the stem base at the correct SMuFL attachment point rather than the notehead center.
+   */
+  static readonly noteHeadStemYOffsets: Record<string, { up: number; down: number }> = {
+    [Glyphs.noteheadXBlack]: { up: 0.444, down: -0.44 },
+    [Glyphs.noteheadXHalf]: { up: 0.412, down: -0.412 },
+  };
+
   // HACK:
   // Since text origins are positioned at the baseline, we must
   // compensate for the ascender of the text. Of course, 1 staff space is
